@@ -1,0 +1,65 @@
+@import "~@angular/material/theming";
+
+mat-card {
+  padding: 32px 16px;
+
+  > *:not(:last-child) {
+    margin-bottom: 32px;
+  }
+
+  @include mat-elevation(8);
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: center;
+
+  h1,
+  mat-card-title {
+    margin: 0;
+  }
+}
+
+mat-card-content {
+  padding: 0 16px 8px 16px;
+}
+
+mat-card-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0 16px;
+
+  > *:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+button {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.remember {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+a {
+  text-decoration: none;
+  color: #29b6f6;
+}
+
+.facebook {
+  color: #4267b2;
+}
+
+.google {
+  color: #db4437;
+}
