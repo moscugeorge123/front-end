@@ -1,7 +1,15 @@
 @import "~@angular/material/theming";
 
+:host {
+  display: flex;
+  min-width: 300px;
+  max-width: 500px;
+  height: min-content;
+  margin-top: 100px;
+}
+
 mat-card {
-  padding: 32px 16px;
+  padding: 48px 32px;
 
   > *:not(:last-child) {
     margin-bottom: 32px;
@@ -56,10 +64,39 @@ a {
   color: #29b6f6;
 }
 
-.facebook {
-  color: #4267b2;
+.social-media {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+
+  .facebook {
+    color: #4267b2;
+  }
+
+  .google {
+    color: #db4437;
+  }
 }
 
-.google {
-  color: #db4437;
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  > *:not(:last-child) {
+    margin-right: 16px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  :host {
+    margin-top: 0;
+    height: auto;
+  }
+
+  mat-card {
+    padding: 32px 16px;
+  }
 }

@@ -4,9 +4,13 @@ import { PageNotFoundComponent } from './shared';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     loadChildren: () =>
       import('./default/default.module').then((m) => m.DefaultModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'shop',
@@ -16,6 +20,11 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
+  },
+  {
+    path: '',
+    redirectTo: '/auth/login',
+    pathMatch: 'full',
   },
   {
     path: '**',

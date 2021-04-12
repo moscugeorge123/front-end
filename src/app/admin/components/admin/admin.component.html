@@ -1,0 +1,34 @@
+<mat-drawer-container class="drawer-container">
+  <mat-drawer class="drawer" mode="side" [opened]="opened$ | async">
+    <h2 class="title">Dashboard menu</h2>
+    <mat-list>
+      <mat-list-item
+        routerLink="shops"
+        routerLinkActive="active"
+        class="list-item"
+      >
+        <div class="list-item">
+          <mat-icon>store</mat-icon>
+          <span>Shops</span>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item routerLink="products" routerLinkActive="active">
+        <div class="list-item">
+          <mat-icon>menu_book</mat-icon>
+          <span>Products</span>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item routerLink="ingredients" routerLinkActive="active">
+        <div class="list-item">
+          <mat-icon>fastfood</mat-icon>
+          <span>Ingredients</span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content class="drawer-content">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

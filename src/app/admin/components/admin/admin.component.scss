@@ -1,0 +1,47 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
+.title {
+  padding-top: 16px;
+  padding-left: 16px;
+}
+
+.drawer {
+  width: 15%;
+  min-width: 280px;
+  max-width: 400px;
+
+  &-container {
+    width: 100%;
+  }
+
+  &-content {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+mat-list-item {
+  &.active {
+    background-color: #444;
+    color: white;
+  }
+
+  &:hover:not(.active) {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+
+  > *:not(:last-child) {
+    margin-right: 12px;
+  }
+}
