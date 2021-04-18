@@ -1,1 +1,10 @@
 @import "../common.scss";
+
+.image {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.image img {
+  max-height: 65px;
+}

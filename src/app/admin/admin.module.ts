@@ -8,6 +8,13 @@ import {
 } from './components';
 import { AdminComponent } from './components/admin/admin.component';
 import { MaterialModule } from '../material/material.module';
+import { StoreModule } from '@ngrx/store';
+import { adminReducer } from './store/admin.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AdminEffects } from './store/admin.effects';
+import { ProductsSidePanelComponent } from './components/products-side-panel/products-side-panel.component';
+import { CreateProductComponent } from './components/create-product/create-product.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +22,16 @@ import { MaterialModule } from '../material/material.module';
     ShopsComponent,
     IngredientsComponent,
     AdminComponent,
+    ProductsSidePanelComponent,
+    CreateProductComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, MaterialModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    AdminRoutingModule,
+    MaterialModule,
+    StoreModule.forFeature('admin', adminReducer),
+    EffectsModule.forFeature([AdminEffects]),
+  ],
 })
 export class AdminModule {}

@@ -1,0 +1,42 @@
+<h2>{{title}}</h2>
+<ng-container [formGroup]="product">
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      placeholder="Product name"
+      formControlName="name"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea
+      matInput
+      placeholder="Product description"
+      formControlName="description"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      placeholder="Product price"
+      formControlName="price"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      placeholder="Product discount"
+      formControlName="discount"
+    />
+  </mat-form-field>
+</ng-container>
+
+<div class="actions">
+  <button mat-flat-button (click)="close()">Cancel</button>
+  <button mat-flat-button color="primary">Create</button>
+</div>

@@ -1,17 +1,42 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { IAdminState } from './initial-state';
+import { IProductState } from './initial-state';
 
-const authSelector = createFeatureSelector('auth');
+const adminSelector = createFeatureSelector('admin');
 
 export const productsLoadingSelector = createSelector(
-  authSelector,
-  (state: IAdminState) => state.products?.loading
+  adminSelector,
+  (state: IProductState) => state.products?.loading
 );
 export const productsDataSelector = createSelector(
-  authSelector,
-  (state: IAdminState) => state.products?.data
+  adminSelector,
+  (state: IProductState) => state.products?.data
 );
 export const productsErrorSelector = createSelector(
-  authSelector,
-  (state: IAdminState) => state.products?.error
+  adminSelector,
+  (state: IProductState) => state.products?.error
+);
+
+export const singleProductLoadingSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.singleProduct?.loading
+);
+export const singleProductDataSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.singleProduct?.data
+);
+export const singleProductErrorSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.singleProduct?.error
+);
+
+// side panel
+export const sidePanelSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.sidePanel?.data
+);
+
+// side panel Product
+export const sidePanelProductSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.sidePanelProduct?.data
 );

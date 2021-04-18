@@ -30,5 +30,8 @@
   </mat-drawer>
   <mat-drawer-content class="drawer-content">
     <router-outlet></router-outlet>
+    <app-products-side-panel
+      [@sidePanel]="(sidePanel$ | async) ? 'open' : 'closed'"
+    ></app-products-side-panel>
   </mat-drawer-content>
 </mat-drawer-container>

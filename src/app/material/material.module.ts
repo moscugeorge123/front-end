@@ -10,6 +10,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const modules = [
   MatButtonModule,
@@ -23,6 +24,7 @@ const modules = [
   MatSidenavModule,
   MatTableModule,
   MatToolbarModule,
+  MatDialogModule,
 ];
 
 @NgModule({

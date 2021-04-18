@@ -1,0 +1,39 @@
+<button mat-icon-button class="close-button" (click)="close()">
+  <mat-icon>close</mat-icon>
+</button>
+<ng-container *ngIf="product$ | async as product">
+  <div class="header">
+    <div class="image">
+      <img src="/assets/images/product.jpg" alt="" />
+    </div>
+    <div class="details">
+      <h2 class="name">{{ product.name }}</h2>
+      <p class="price">Price {{ product.price }}</p>
+      <p class="discount" *ngIf="product.discount">
+        {{ product.discount }} discount
+      </p>
+    </div>
+  </div>
+
+  <h3 class="description-title">Description</h3>
+  <p class="description">
+    {{ product.description }}
+  </p>
+
+  <h3 class="description-title">Ingredients</h3>
+  <p class="description">
+    {{ ingredients(product) }}
+  </p>
+
+  <div class="actions">
+    <button
+      mat-button
+      mat-raised-button
+      color="primary"
+      (click)="edit(product)"
+    >
+      Edit
+    </button>
+    <button mat-button mat-raised-button color="warn" disabled>Remove</button>
+  </div>
+</ng-container>
