@@ -1,25 +1,68 @@
-import { Component } from '@angular/core';
-import { IProduct } from '../../types/product.types';
-
-const ELEMENT_DATA: IProduct[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+import { AgmMarker } from '@agm/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import {
+  entitySidePanelAction,
+  getShopsRequestActions,
+  openSidePanelAction,
+} from '../../store/admin.actions';
+import { shopsDataSelector } from '../../store/admin.selectors';
+import { CreateShopComponent } from '../create-shop/create-shop.component';
 
 @Component({
   selector: 'app-shops',
   templateUrl: './shops.component.html',
   styleUrls: ['./shops.component.scss'],
 })
-export class ShopsComponent {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+export class ShopsComponent implements OnInit, OnDestroy {
+  private subscription$ = new Subscription();
+  public shops = [];
+  public lat = 0;
+  public lon = 0;
+
+  constructor(private store: Store, private dialog: MatDialog) {}
+
+  ngOnInit(): void {
+    this.subscription$.add(
+      this.store.select(shopsDataSelector).subscribe((shops) => {
+        if (!shops) {
+          return;
+        }
+
+        this.shops = shops;
+        this.shops.forEach((shop) => {
+          this.lat += shop.locationX;
+          this.lon += shop.locationY;
+        });
+
+        this.lat /= shops.length;
+        this.lon /= shops.length;
+      })
+    );
+    this.store.dispatch(getShopsRequestActions());
+  }
+
+  ngOnDestroy(): void {}
+
+  mapClick(event: { coords: { lat: number; lng: number } }): void {
+    console.log(event);
+
+    this.dialog.open(CreateShopComponent, {
+      minWidth: '300px',
+      width: '35%',
+      data: {
+        locationX: event.coords.lat,
+        locationY: event.coords.lng,
+      },
+    });
+  }
+
+  markerClick(event: AgmMarker, shop: any): void {
+    this.store.dispatch(
+      entitySidePanelAction({ entity: { ...shop, type: 'shop' } })
+    );
+    this.store.dispatch(openSidePanelAction());
+  }
 }

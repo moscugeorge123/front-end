@@ -12,6 +12,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { AgmCoreModule } from '@agm/core';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,17 +24,17 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     HttpClientModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
-    }),
     SharedModule,
     MaterialModule,
     DefaultModule,
+    AdminModule,
     SimpleNotificationsModule.forRoot(),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
+    }),
+    AgmCoreModule.forRoot({
+      apiKey: '',
     }),
   ],
   bootstrap: [AppComponent],

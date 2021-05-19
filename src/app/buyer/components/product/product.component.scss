@@ -1,0 +1,33 @@
+@import "~@angular/material/theming";
+
+.product {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  @include mat-elevation(0);
+
+  &:hover {
+    @include mat-elevation(5);
+  }
+}
+
+.image {
+  align-self: center;
+  height: 100px;
+  width: auto;
+  max-width: 80%;
+  margin-top: 16px !important;
+}
+
+h2 {
+  margin: 0 0 5px 0;
+}
+
+.price {
+  font-size: 21px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}

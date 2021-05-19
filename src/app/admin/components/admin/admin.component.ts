@@ -18,8 +18,8 @@ import { sidePanelSelector } from '../../store/admin.selectors';
     trigger('sidePanel', [
       state('open', style({ transform: 'translateX(0)' })),
       state('closed', style({ transform: 'translateX(100%)' })),
-      transition('open => closed', [animate('.35s ease-in-out')]),
-      transition('closed => open', [animate('.35s ease-in-out')]),
+      transition('open => closed', [animate('.25s ease-in-out')]),
+      transition('closed => open', [animate('.25s ease-in-out')]),
     ]),
   ],
 })

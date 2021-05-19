@@ -1,0 +1,21 @@
+<mat-card class="product">
+  <img class="image" [src]="image" mat-card-image />
+  <mat-card-title>
+    <h2>{{ product.name }}</h2>
+  </mat-card-title>
+  <mat-card-content>
+    <p>{{ getIngredients(product.ingredients) }}</p>
+    <p class="price">${{ product.price }}</p>
+  </mat-card-content>
+  <mat-card-footer class="footer">
+    <button
+      mat-button
+      mat-flat-button
+      [disabled]="loading"
+      color="primary"
+      (click)="addProductToCart(product)"
+    >
+      Add to cart
+    </button>
+  </mat-card-footer>
+</mat-card>

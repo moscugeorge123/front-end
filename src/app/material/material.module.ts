@@ -11,20 +11,26 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatBadgeModule } from '@angular/material/badge';
 
 const modules = [
+  MatBadgeModule,
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatChipsModule,
+  MatDialogModule,
   MatDividerModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
+  MatPaginatorModule,
   MatProgressSpinnerModule,
   MatSidenavModule,
   MatTableModule,
   MatToolbarModule,
-  MatDialogModule,
 ];
 
 @NgModule({

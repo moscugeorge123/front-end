@@ -1,0 +1,15 @@
+<button mat-icon-button class="close-button" (click)="close()">
+  <mat-icon>close</mat-icon>
+</button>
+
+<ng-container *ngIf="entity$ | async as entity">
+  <app-product-content
+    *ngIf="entity?.type === 'product'"
+    [product]="entity"
+  ></app-product-content>
+
+  <app-shop-content
+    *ngIf="entity?.type === 'shop'"
+    [shop]="entity"
+  ></app-shop-content>
+</ng-container>

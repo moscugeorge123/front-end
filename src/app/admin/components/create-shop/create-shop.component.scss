@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+
+  > *:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  > *:not(:last-child) {
+    margin-right: 12px;
+  }
+}

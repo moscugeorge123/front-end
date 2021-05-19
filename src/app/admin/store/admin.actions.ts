@@ -16,15 +16,15 @@ export const getProductsFailureActions = createAction(
 
 // get one
 export const getSingleProductRequestActions = createAction(
-  '[Products] products Request',
+  '[Products] Single products Request',
   props<{ id: string }>()
 );
-export const getSingleProductSuccessActions = createAction(
-  '[Products] products Success',
+export const singleProductSuccessActions = createAction(
+  '[Products] Single products Success',
   props<{ singleProduct: any[] }>()
 );
-export const getSingleProductFailureActions = createAction(
-  '[Products] products Failure',
+export const singleProductFailureActions = createAction(
+  '[Products] Single products Failure',
   props<{ error: HttpErrorResponse }>()
 );
 
@@ -39,7 +39,40 @@ export const openSidePanelAction = createAction('[Side Panel] open');
 export const closeSidePanelAction = createAction('[Side Panel] close');
 
 // product for side panel
-export const productSidePanelAction = createAction(
+export const entitySidePanelAction = createAction(
   '[Side Panel] Product',
-  props<{ product: any }>()
+  props<{ entity: any }>()
+);
+
+// SHOPS
+
+// get all
+export const getShopsRequestActions = createAction('[Shops] Shops GET Request');
+export const getShopsSuccessActions = createAction(
+  '[Shops] Shops GET Success',
+  props<{ shops: any[] }>()
+);
+export const getShopsFailureActions = createAction(
+  '[Shops] Shops GET Failure',
+  props<{ error: HttpErrorResponse }>()
+);
+
+// single shop
+export const getSingleShopRequestActions = createAction(
+  '[Shops] Single Shop Request',
+  props<{ id: string }>()
+);
+export const singleShopSuccessActions = createAction(
+  '[Shops] Single Shop Success',
+  props<{ singleShop: any[] }>()
+);
+export const singleShopFailureActions = createAction(
+  '[Shops] Single Shop Failure',
+  props<{ error: HttpErrorResponse }>()
+);
+
+// create one
+export const createSingleShopRequestAction = createAction(
+  '[Shops] Create Shop',
+  props<{ shop: any }>()
 );

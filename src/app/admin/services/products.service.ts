@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ProductsService {
-  private api = `${environment.api}/products`;
+  private api = `${environment.products}/Products`;
 
   constructor(private http: HttpClient) {}
 
@@ -21,5 +21,22 @@ export class ProductsService {
 
   create(product: any): Observable<any> {
     return this.http.post(this.api, product);
+  }
+
+  edit(product: any, id: string): Observable<any> {
+    return this.http.put(this.api, product, {
+      params: { id },
+    });
+  }
+
+  remove(productId: any): Observable<any> {
+    return this.http.delete(`${this.api}/${productId}`);
+  }
+
+  addIngredient(ingredientId: number, productId: number): Observable<any> {
+    return this.http.post(`${environment.products}/JoinProductIngredient`, {
+      ingredientsId: ingredientId,
+      productsId: productId,
+    });
   }
 }

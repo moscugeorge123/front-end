@@ -1,0 +1,45 @@
+<h2>{{ title }}</h2>
+<ng-container [formGroup]="shop">
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      placeholder="Shop name"
+      formControlName="name"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      placeholder="Latitude"
+      formControlName="locationX"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      placeholder="Longitude"
+      formControlName="locationY"
+    />
+  </mat-form-field>
+</ng-container>
+
+<div class="actions">
+  <button mat-flat-button (click)="close()">Cancel</button>
+  <button
+    [disabled]="shop.invalid || (loading$ | async)"
+    (click)="create()"
+    mat-flat-button
+    color="primary"
+  >
+    <span *ngIf="!(loading$ | async)">Create</span>
+    <span *ngIf="loading$ | async" class="loading">
+      <span>Loading...</span>
+      <mat-spinner [diameter]="18"></mat-spinner>
+    </span>
+  </button>
+</div>

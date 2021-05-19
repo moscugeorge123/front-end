@@ -1,5 +1,40 @@
-<mat-toolbar color="primary">
-  <button *ngIf="isOnAdminRoute" (click)="toggleDrawer()" mat-icon-button class="admin-menu">
-    <mat-icon>menu</mat-icon>
-  </button>
+<mat-toolbar color="primary" class="toolbar">
+  <div class="left-section">
+    <button
+      *ngIf="isOnAdminRoute"
+      (click)="toggleDrawer()"
+      mat-icon-button
+      class="admin-menu"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <div class="right-section">
+    <ng-container *ngIf="isLoggedIn">
+      <button mat-button routerLink="/products">Hot Dogs</button>
+      <button
+        mat-button
+        routerLink="/products/shopping-cart"
+        *ngIf="!isOnAdminRoute"
+      >
+        <mat-icon
+          [matBadgeHidden]="numberOfProductsInCart <= 0"
+          [matBadge]="numberOfProductsInCart"
+          matBadgeColor="warn"
+          >shopping_cart</mat-icon
+        >
+      </button>
+      <button mat-button routerLink="/admin">
+        <mat-icon>admin_panel_settings</mat-icon>
+      </button>
+      <button mat-button (click)="logOut()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </ng-container>
+    <ng-container *ngIf="!isLoggedIn">
+      <button mat-button routerLink="/auth/login">Login</button>
+      <button mat-button routerLink="auth/register">Register</button>
+    </ng-container>
+  </div>
 </mat-toolbar>

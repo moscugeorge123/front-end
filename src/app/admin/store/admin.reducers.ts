@@ -1,14 +1,21 @@
 import { createReducer, on } from '@ngrx/store';
 import {
   getSingleProductRequestActions,
-  getSingleProductSuccessActions,
-  getSingleProductFailureActions,
+  singleProductSuccessActions,
+  singleProductFailureActions,
   getProductsRequestActions,
   getProductsSuccessActions,
   getProductsFailureActions,
   openSidePanelAction,
   closeSidePanelAction,
-  productSidePanelAction,
+  entitySidePanelAction,
+  getShopsRequestActions,
+  getShopsSuccessActions,
+  getShopsFailureActions,
+  getSingleShopRequestActions,
+  singleShopSuccessActions,
+  singleShopFailureActions,
+  createSingleShopRequestAction,
 } from './admin.actions';
 import { adminInitialState } from './initial-state';
 
@@ -16,15 +23,19 @@ export const adminReducer = createReducer(
   adminInitialState,
   on(getSingleProductRequestActions, (state) => ({
     ...state,
-    products: { ...state.singleProduct, loading: true },
+    singleProduct: { ...state.singleProduct, loading: true },
   })),
-  on(getSingleProductSuccessActions, (state, { singleProduct }) => ({
+  on(singleProductSuccessActions, (state, { singleProduct }) => ({
     ...state,
-    products: { ...state.singleProduct, data: singleProduct, loading: false },
+    singleProduct: {
+      ...state.singleProduct,
+      data: singleProduct,
+      loading: false,
+    },
   })),
-  on(getSingleProductFailureActions, (state, { error }) => ({
+  on(singleProductFailureActions, (state, { error }) => ({
     ...state,
-    products: { ...state.singleProduct, loading: false, error },
+    singleProduct: { ...state.singleProduct, loading: false, error },
   })),
 
   on(getProductsRequestActions, (state) => ({
@@ -49,8 +60,44 @@ export const adminReducer = createReducer(
     sidePanel: { data: false },
   })),
 
-  on(productSidePanelAction, (state, { product }) => ({
+  on(entitySidePanelAction, (state, { entity: product }) => ({
     ...state,
-    sidePanelProduct: { data: product },
+    sidePanelEntity: { data: product },
+  })),
+
+  // SHOPS
+
+  on(getShopsRequestActions, (state) => ({
+    ...state,
+    shops: { ...state.shops, loading: true },
+  })),
+  on(getShopsSuccessActions, (state, { shops }) => ({
+    ...state,
+    shops: { ...state.shops, data: shops, loading: false },
+  })),
+  on(getShopsFailureActions, (state, { error }) => ({
+    ...state,
+    shops: { ...state.shops, loading: false, error },
+  })),
+
+  on(getSingleShopRequestActions, (state) => ({
+    ...state,
+    singleShop: { ...state.singleShop, loading: true },
+  })),
+  on(createSingleShopRequestAction, (state) => ({
+    ...state,
+    singleShop: { ...state.singleShop, loading: true },
+  })),
+  on(singleShopSuccessActions, (state, { singleShop }) => ({
+    ...state,
+    singleShop: {
+      ...state.singleShop,
+      data: singleShop,
+      loading: false,
+    },
+  })),
+  on(singleShopFailureActions, (state, { error }) => ({
+    ...state,
+    singleShop: { ...state.singleShop, loading: false, error },
   }))
 );

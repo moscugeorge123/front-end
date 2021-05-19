@@ -40,7 +40,7 @@ export class AuthEffects {
           username: payload.username,
         })
       ),
-      map(({ token }) => loginSuccessAction({ payload: { token } })),
+      map((payload) => loginSuccessAction({ payload })),
       catchError((error) => of(loginFailureAction({ error })))
     )
   );

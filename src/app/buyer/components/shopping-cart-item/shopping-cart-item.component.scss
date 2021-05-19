@@ -1,0 +1,42 @@
+@import "~@angular/material/theming";
+
+:host {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 15px;
+
+  > :not(:last-child) {
+    margin-right: 30px;
+  }
+
+  &:hover {
+    @include mat-elevation(5);
+  }
+}
+
+.image {
+  width: 100px;
+
+  > img {
+    width: 100%;
+  }
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.price {
+  display: flex;
+  font-size: 21px;
+  align-items: center;
+
+  mat-form-field {
+    max-width: 50px;
+  }
+
+  > :not(:last-child) {
+    margin-right: 10px;
+  }
+}

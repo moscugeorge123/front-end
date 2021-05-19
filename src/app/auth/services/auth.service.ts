@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
-  private api = `${environment.api}/users`;
+  private api = `${environment.auth}/users`;
 
   constructor(private http: HttpClient) {}
 

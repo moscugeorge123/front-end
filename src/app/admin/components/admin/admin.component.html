@@ -20,18 +20,18 @@
         </div>
       </mat-list-item>
 
-      <mat-list-item routerLink="ingredients" routerLinkActive="active">
+      <!-- <mat-list-item routerLink="ingredients" routerLinkActive="active">
         <div class="list-item">
           <mat-icon>fastfood</mat-icon>
           <span>Ingredients</span>
         </div>
-      </mat-list-item>
+      </mat-list-item> -->
     </mat-list>
   </mat-drawer>
   <mat-drawer-content class="drawer-content">
     <router-outlet></router-outlet>
-    <app-products-side-panel
+    <app-side-panel
       [@sidePanel]="(sidePanel$ | async) ? 'open' : 'closed'"
-    ></app-products-side-panel>
+    ></app-side-panel>
   </mat-drawer-content>
 </mat-drawer-container>

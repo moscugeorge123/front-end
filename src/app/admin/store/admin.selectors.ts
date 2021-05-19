@@ -36,7 +36,35 @@ export const sidePanelSelector = createSelector(
 );
 
 // side panel Product
-export const sidePanelProductSelector = createSelector(
+export const sidePanelEntitySelector = createSelector(
   adminSelector,
-  (state: IProductState) => state.sidePanelProduct?.data
+  (state: IProductState) => state.sidePanelEntity?.data
+);
+
+// SHOPS
+
+export const shopsLoadingSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.shops?.loading
+);
+export const shopsDataSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.shops?.data
+);
+export const shopsErrorSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.shops?.error
+);
+
+export const singleShopLoadingSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.singleShop?.loading
+);
+export const singleShopDataSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.singleShop?.data
+);
+export const singleShopErrorSelector = createSelector(
+  adminSelector,
+  (state: IProductState) => state.singleShop?.error
 );

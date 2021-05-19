@@ -1,0 +1,52 @@
+<div class="header">
+  <div class="image">
+    <img src="/assets/images/product.jpg" alt="" />
+  </div>
+  <div class="details">
+    <h2 class="name">{{ product.name }}</h2>
+    <p class="price">Price {{ product.price }}</p>
+    <p class="discount" *ngIf="product.discount">
+      {{ product.discount }} discount
+    </p>
+  </div>
+</div>
+
+<h3 class="description-title">Description</h3>
+<p class="description">
+  {{ product.description }}
+</p>
+
+<!-- <h3 class="description-title">Ingredients</h3>
+  <p class="description">
+    {{ ingredients(product) }}
+  </p> -->
+
+<mat-form-field class="description-title">
+  <mat-label>Ingredients</mat-label>
+  <mat-chip-list #chipList aria-label="Ingredients selection">
+    <mat-chip
+      *ngFor="let ingredient of product.ingredients"
+      (removed)="remove(fruit)"
+    >
+      {{ ingredient.name }}
+      <!-- <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon> -->
+    </mat-chip>
+    <input
+      matInput
+      placeholder="New ingredient..."
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="true"
+      (matChipInputTokenEnd)="add($event, product)"
+    />
+  </mat-chip-list>
+</mat-form-field>
+
+<div class="actions">
+  <button mat-button mat-raised-button color="primary" (click)="edit(product)">
+    Edit
+  </button>
+  <button mat-button mat-raised-button color="warn" (click)="remove(product)">
+    Remove
+  </button>
+</div>

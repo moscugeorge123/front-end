@@ -1,1 +1,11 @@
 @import "../common.scss";
+
+:host {
+  margin: -16px;
+}
+
+agm-map {
+  height: 100%;
+  width: 102%;
+  margin: 0 !important;
+}

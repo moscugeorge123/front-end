@@ -7,35 +7,64 @@
 
   <mat-card-content [formGroup]="form">
     <mat-form-field>
-      <input type="string" matInput placeholder="Username" formControlName="username">
+      <input
+        type="string"
+        matInput
+        placeholder="Username"
+        formControlName="username"
+      />
       <mat-icon matSuffix color="primary">account_box</mat-icon>
-      <mat-error *ngIf="form.get('username').hasError('required')">Field required</mat-error>
+      <mat-error *ngIf="form.get('username').hasError('required')"
+        >Field required</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
-      <input type="email" matInput placeholder="Email" formControlName="email">
+      <input
+        type="email"
+        matInput
+        placeholder="Email"
+        formControlName="email"
+      />
       <mat-icon matSuffix color="primary">email</mat-icon>
-      <mat-error *ngIf="form.get('email').hasError('email')">Invalid email!</mat-error>
-      <mat-error *ngIf="form.get('email').hasError('required')">Field required</mat-error>
+      <mat-error *ngIf="form.get('email').hasError('email')"
+        >Invalid email!</mat-error
+      >
+      <mat-error *ngIf="form.get('email').hasError('required')"
+        >Field required</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
-      <input type="password" matInput placeholder="Password" formControlName="password">
+      <input
+        type="password"
+        matInput
+        placeholder="Password"
+        formControlName="password"
+      />
       <mat-icon matSuffix color="primary">visibility_off</mat-icon>
-      <mat-error *ngIf="form.get('password').hasError('required')">Field required</mat-error>
+      <mat-error *ngIf="form.get('password').hasError('required')"
+        >Field required</mat-error
+      >
     </mat-form-field>
   </mat-card-content>
 
   <mat-card-footer>
-    <button [disabled]="form.invalid || (loading$ | async)" (click)="register()" mat-button mat-flat-button color="primary">
+    <button
+      [disabled]="form.invalid || (loading$ | async)"
+      (click)="register()"
+      mat-button
+      mat-flat-button
+      color="primary"
+    >
       <span *ngIf="!(loading$ | async)">Register</span>
       <span *ngIf="loading$ | async" class="loading">
         <span>Loading...</span>
         <mat-spinner [diameter]="18"></mat-spinner>
       </span>
     </button>
-    <div class="social-media">
+    <!-- <div class="social-media">
       <span>OR</span>
       <button mat-button mat-flat-button class="facebook">Register with Facebook</button>
-    </div>
+    </div> -->
     <div class="social-media">
       <p>Already have an account? <a routerLink="../login">Sign in here</a></p>
     </div>

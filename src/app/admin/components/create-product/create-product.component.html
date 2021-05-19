@@ -1,4 +1,4 @@
-<h2>{{title}}</h2>
+<h2>{{ title }}</h2>
 <ng-container [formGroup]="product">
   <mat-form-field>
     <input
@@ -38,5 +38,16 @@
 
 <div class="actions">
   <button mat-flat-button (click)="close()">Cancel</button>
-  <button mat-flat-button color="primary">Create</button>
+  <button
+    [disabled]="product.invalid || (loading$ | async)"
+    (click)="create()"
+    mat-flat-button
+    color="primary"
+  >
+    <span *ngIf="!(loading$ | async)">{{ this.data ? "Edit" : "Create" }}</span>
+    <span *ngIf="loading$ | async" class="loading">
+      <span>Loading...</span>
+      <mat-spinner [diameter]="18"></mat-spinner>
+    </span>
+  </button>
 </div>

@@ -22,6 +22,11 @@ const routes: Routes = [
       import('./admin/admin.module').then((m) => m.AdminModule),
   },
   {
+    path: 'products',
+    loadChildren: () =>
+      import('./buyer/buyer.module').then((m) => m.BuyerModule),
+  },
+  {
     path: '',
     redirectTo: '/auth/login',
     pathMatch: 'full',
