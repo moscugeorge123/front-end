@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+
+  > * {
+    margin-left: 10px;
+  }
+}
+
+.success-message {
+  min-width: 300px;
+  color: green;
+  text-align: center;
+}

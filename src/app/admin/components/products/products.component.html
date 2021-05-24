@@ -1,8 +1,15 @@
 <div class="title">
-  <h1><mat-icon>menu_book</mat-icon><span>Products</span></h1>
-  <button mat-flat-button color="primary" (click)="createNew()">
-    New HotDog
-  </button>
+  <div class="title-container">
+    <h1><mat-icon>menu_book</mat-icon><span>Products</span></h1>
+  </div>
+  <div class="header-actions">
+    <button mat-flat-button color="primary" (click)="export()">
+      Export Products
+    </button>
+    <button mat-flat-button color="primary" (click)="createNew()">
+      New HotDog
+    </button>
+  </div>
 </div>
 <div class="table mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">

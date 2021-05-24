@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import {
   closeSidePanelAction,
   entitySidePanelAction,
+  getProductsRequestActions,
 } from '../../store/admin.actions';
 import { sidePanelEntitySelector } from '../../store/admin.selectors';
 
@@ -22,5 +23,6 @@ export class ProductsSidePanelComponent {
   close(): void {
     this.store.dispatch(closeSidePanelAction());
     this.store.dispatch(entitySidePanelAction({ entity: null }));
+    this.store.dispatch(getProductsRequestActions());
   }
 }

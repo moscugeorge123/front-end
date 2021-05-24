@@ -1,26 +1,46 @@
-<div class="products-container">
+<div class="products-container" *ngIf="products$ | async as products">
   <div class="products-header">
     <mat-icon>shopping_cart</mat-icon>
     <h1>Shopping Cart</h1>
   </div>
+  <ng-container *ngIf="products?.length">
+    <div class="products-list">
+      <app-shopping-cart-item
+        [product]="item.product"
+        image="../../../../assets/images/hot_dog_{{ i % 5 }}.png"
+        *ngFor="let item of products; let i = index"
+      ></app-shopping-cart-item>
+    </div>
+  </ng-container>
 
-  <div class="products-list">
-    <app-shopping-cart-item></app-shopping-cart-item>
-    <app-shopping-cart-item></app-shopping-cart-item>
-    <app-shopping-cart-item></app-shopping-cart-item>
-    <app-shopping-cart-item></app-shopping-cart-item>
-    <app-shopping-cart-item></app-shopping-cart-item>
-    <app-shopping-cart-item></app-shopping-cart-item>
-    <app-shopping-cart-item></app-shopping-cart-item>
-    <app-shopping-cart-item></app-shopping-cart-item>
-    <app-shopping-cart-item></app-shopping-cart-item>
-  </div>
+  <ng-container *ngIf="!products?.length">
+    <div class="empty">
+      <p>The shopping cart is empty.</p>
+      <p>
+        Go to <a routerLink="/products">Hot Dogs page</a> to fill you up! 😋
+      </p>
+    </div>
+  </ng-container>
 
-  <div class="products-footer">
-    <h2>Total of: $122.23</h2>
+  <div class="products-footer" *ngIf="products?.length">
+    <h2>Total of: ${{ getTotal(products) }}</h2>
     <div class="actions">
-      <button mat-button mat-flat-button color="warn">Clear</button>
-      <button mat-button mat-flat-button color="primary">Checkout</button>
+      <button
+        mat-button
+        mat-flat-button
+        color="warn"
+        (click)="removeShoppingCart()"
+      >
+        Clear
+      </button>
+      <button
+        mat-button
+        mat-flat-button
+        color="primary"
+        (click)="openQRCodeScanner($event)"
+      >
+        Checkout
+      </button>
     </div>
   </div>
 </div>

@@ -1,0 +1,16 @@
+<h2>Scan the shop QR Code!</h2>
+<zxing-scanner
+  *ngIf="!finishedOrder"
+  [autostart]="true"
+  [(device)]="activeCamera"
+  (scanSuccess)="!makingOrder ? successRead($event) : null"
+></zxing-scanner>
+
+<div *ngIf="finishedOrder" class="success-message">
+  <h1>The order was successful!</h1>
+  <h1>Have a nice day! 🥰</h1>
+</div>
+
+<div class="actions">
+  <button mat-flat-button (click)="close()">Close</button>
+</div>

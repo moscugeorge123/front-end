@@ -12,6 +12,11 @@ import { BuyerEffects } from './store/buyer.effects';
 import { buyerReducer } from './store/buyer.reducers';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientModule } from '@angular/common/http';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { FinalizeCommandComponent } from './components/finalize-command/finalize-command.component';
+import { ShopsComponent } from './components/shops/shops.component';
+import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
   declarations: [
@@ -20,14 +25,21 @@ import { HttpClientModule } from '@angular/common/http';
     ProductComponent,
     ShoppingCartComponent,
     ShoppingCartItemComponent,
+    FinalizeCommandComponent,
+    ShopsComponent,
   ],
   imports: [
     CommonModule,
     BuyerRoutingModule,
     MaterialModule,
     HttpClientModule,
+    ZXingScannerModule,
     EffectsModule.forFeature([BuyerEffects]),
     StoreModule.forFeature('buyer', buyerReducer),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyD7AcOr33Na-vSmoauocqbmugJ1bgKVIPM',
+    }),
+    AgmDirectionModule,
   ],
 })
 export class BuyerModule {}

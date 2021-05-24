@@ -1,14 +1,10 @@
 <div class="image">
-  <img src="../../../../assets/images/hot_dog_0.png" />
+  <img [src]="image" />
 </div>
 <div class="content">
-  <h2 class="name">Product name</h2>
-  <p class="description">Product description</p>
+  <h2 class="name">{{ product.name }}</h2>
+  <p class="description">{{ product.description || "" }}</p>
 </div>
 <div class="price">
-  <!-- <mat-form-field>
-    <input matInput type="number" class="quantity" />
-  </mat-form-field>
-  <span>x</span> -->
-  <p class="price__total">$49.98</p>
+  <p class="price__total">${{ product.price }}</p>
 </div>

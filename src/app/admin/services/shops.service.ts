@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -21,5 +22,32 @@ export class ShopsService {
 
   create(product: any): Observable<any> {
     return this.http.post(this.api, product);
+  }
+
+  addIngredient(
+    name: string,
+    price: any,
+    quantity: number,
+    shopId: any
+  ): Observable<any> {
+    return this.http
+      .post(
+        `${environment.shops}/Ingredients`,
+        { name, price },
+        { responseType: 'text' }
+      )
+      .pipe(
+        switchMap((ingrdientId) =>
+          this.http.post(`${environment.shops}/JoinShopIngredient`, {
+            shopId,
+            quantity,
+            ingrdientId,
+          })
+        )
+      );
+  }
+
+  removeIngredient(id: string): Observable<any> {
+    return this.http.delete(`${environment.shops}/Ingredients/${id}`);
   }
 }

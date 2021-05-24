@@ -29,5 +29,11 @@ h2 {
 
 .footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    margin: 0;
+    font-size: 25px;
+  }
 }

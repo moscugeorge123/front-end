@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { productsDataSelector } from 'src/app/admin/store/admin.selectors';
-import { cartProductSelectorData } from '../../store/buyer.selectors';
+import { map, switchMap } from 'rxjs/operators';
+import { ProductsService } from 'src/app/admin/services/products.service';
+import { BuyerService } from '../../services/buyer.service';
+import { FinalizeCommandComponent } from '../finalize-command/finalize-command.component';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -11,13 +12,62 @@ import { cartProductSelectorData } from '../../store/buyer.selectors';
   styleUrls: ['./shopping-cart.component.scss'],
 })
 export class ShoppingCartComponent implements OnInit {
-  private products$: Observable<any[]>;
+  public products$: Observable<any[]>;
 
-  constructor(private store: Store) {}
+  constructor(
+    private shoppingCart: BuyerService,
+    private productsService: ProductsService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    // this.store.select(cartProductSelectorData).pipe(
-    //   switchMap(products => this.store.select(productsDataSelector))
-    // )
+    this.getShoppingCart();
+  }
+
+  getShoppingCart(): void {
+    let shoppingCartItems = [];
+    this.products$ = this.shoppingCart.shoppingCart().pipe(
+      switchMap((items: any) => {
+        shoppingCartItems = items;
+        const prodsIds = items.map(({ productId }) => productId);
+        return this.productsService.productsByIds(prodsIds);
+      }),
+      map((products) =>
+        products
+          .map((product: any) => {
+            const shoppingCartItem = shoppingCartItems.filter(
+              ({ productId }) => productId === product.id
+            );
+
+            if (shoppingCartItem) {
+              shoppingCartItem.forEach(
+                (itemCart) => (itemCart.product = product)
+              );
+            }
+
+            return shoppingCartItem;
+          })
+          .reduce((acc, items) => [...acc, ...items], [])
+          .filter((item: any) => item)
+      )
+    );
+  }
+
+  removeShoppingCart(): void {
+    this.shoppingCart.removeShoppingCart().subscribe(() => {
+      this.getShoppingCart();
+    });
+  }
+
+  getTotal(products: { product: { price: number } }[]): number {
+    console.log(products);
+    return products.reduce((acc, { product: { price } }) => acc + price, 0);
+  }
+
+  openQRCodeScanner(e): void {
+    this.dialog
+      .open(FinalizeCommandComponent)
+      .afterClosed()
+      .subscribe(() => this.getShoppingCart());
   }
 }

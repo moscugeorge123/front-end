@@ -8,3 +8,9 @@
 .image img {
   max-height: 65px;
 }
+
+.header-actions {
+  > * {
+    margin-left: 10px;
+  }
+}

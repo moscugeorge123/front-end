@@ -1,0 +1,41 @@
+:host {
+  width: 100%;
+  display: flex;
+}
+
+.shops {
+  min-width: 300px;
+  width: 20%;
+  max-width: 400px;
+  background: white;
+  height: 100%;
+  padding: 20px 0;
+
+  h2 {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+.maps {
+  flex-grow: 1;
+  height: 100%;
+
+  > :first-child {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+mat-list-item {
+  &.active {
+    background-color: #444;
+    color: white;
+  }
+
+  &:hover:not(.active) {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+  }
+}

@@ -31,11 +31,11 @@ export class CreateProductComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<CreateProductComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private store: Store,
     private notifications: NotificationsService,
-    private productService: ProductsService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    private productService: ProductsService
   ) {}
 
   ngOnInit(): void {

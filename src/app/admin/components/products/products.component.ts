@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
+import { first } from 'rxjs/operators';
+import { ProductsService } from '../../services/products.service';
 import {
   getProductsRequestActions,
   openSidePanelAction,
@@ -29,7 +31,11 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   public dataSource = new MatTableDataSource([]);
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private store: Store<any>, private dialog: MatDialog) {}
+  constructor(
+    private store: Store<any>,
+    private dialog: MatDialog,
+    private productsService: ProductsService
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(getProductsRequestActions());
@@ -51,9 +57,19 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   }
 
   createNew(): void {
-    this.dialog.open(CreateProductComponent, {
-      minWidth: '300px',
-      width: '35%',
-    });
+    this.dialog
+      .open(CreateProductComponent, {
+        minWidth: '300px',
+        width: '35%',
+      })
+      .afterClosed()
+      .pipe(first())
+      .subscribe(() => {
+        this.store.dispatch(getProductsRequestActions());
+      });
+  }
+
+  export(): void {
+    this.productsService.export();
   }
 }

@@ -1,12 +1,18 @@
 <div class="products-container">
   <div class="products-header">
+    <h1>Recommended for you</h1>
+  </div>
+
+  <div class="products-list">
+    <app-product
+      *ngFor="let product of recommended$ | async; let i = index"
+      [product]="product"
+      image="../../../../assets/images/hot_dog_{{ i % 5 }}.png"
+    ></app-product>
+  </div>
+
+  <div class="products-header second">
     <h1>Hot Dogs</h1>
-    <!-- <p class="description">
-      The best hot dogs in the world! Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Ea commodi adipisci corporis tenetur illum aperiam ut
-      nostrum, necessitatibus pariatur veniam iste libero, rem animi est. Est
-      magni consequatur asperiores reiciendis!
-    </p> -->
   </div>
 
   <div class="products-list">

@@ -1,6 +1,10 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
+import { switchMap } from 'rxjs/operators';
+import { ShopsService } from '../../services/shops.service';
 import { entitySidePanelAction } from '../../store/admin.actions';
 
 @Component({
@@ -8,24 +12,51 @@ import { entitySidePanelAction } from '../../store/admin.actions';
   templateUrl: './shop-content.component.html',
   styleUrls: ['./shop-content.component.scss'],
 })
-export class ShopContentComponent {
+export class ShopContentComponent implements OnInit {
   @Input() shop: any;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  public loading = false;
+  public readonly displayedColumns: string[] = [
+    'ingredient',
+    'quantity',
+    'actions',
+  ];
 
-  constructor(private store: Store) {}
+  public dataSource = new MatTableDataSource([]);
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  add(event: any): void {
-    if (event.value?.trim()) {
-      const prod = {
-        ...this.shop,
-        ingredients: [...this.shop.ingredients, { name: event.value.trim() }],
-      };
+  constructor(private shopService: ShopsService) {}
 
-      this.store.dispatch(entitySidePanelAction({ entity: prod }));
-    }
+  ngOnInit(): void {
+    this.dataSource.data = this.shop.ingredients;
+  }
 
-    if (event.input) {
-      event.input.value = '';
-    }
+  addIngredient(
+    ingredient: HTMLInputElement,
+    quantity: HTMLInputElement
+  ): void {
+    const name = ingredient.value;
+    const q = +quantity.value;
+
+    this.loading = true;
+    this.shopService
+      .addIngredient(name, 0, q, this.shop.id)
+      .pipe(switchMap(() => this.shopService.shops()))
+      .subscribe((shops: any[]) => {
+        this.shop = shops.find((shop) => shop.id === this.shop.id) || this.shop;
+        this.dataSource.data = this.shop.ingredients;
+        ingredient.value = '';
+        quantity.value = '0';
+        this.loading = false;
+      });
+  }
+
+  deleteIngredient(ingredient: any): void {
+    this.shopService
+      .removeIngredient(ingredient.id)
+      .pipe(switchMap(() => this.shopService.shops()))
+      .subscribe((shops: any[]) => {
+        this.shop = shops.find((shop) => shop.id === this.shop.id) || this.shop;
+        this.dataSource.data = this.shop.ingredients;
+      });
   }
 }

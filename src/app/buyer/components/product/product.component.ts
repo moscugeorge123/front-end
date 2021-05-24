@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
-import { combineAll, filter } from 'rxjs/operators';
 import { addCartProductRequestAction } from '../../store/buyer.actions';
 import {
   cartProductSelectorData,
@@ -27,17 +26,13 @@ export class ProductComponent implements OnInit {
       this.store.select(cartProductSelectorData),
     ]).subscribe(([loading, product]) => {
       if (product?.id === this.product?.id) {
-        console.log(product);
         this.loading = loading;
       }
     });
   }
 
   getIngredients(ingredients: any[]): string {
-    return ingredients
-      .map(({ name }) => name)
-      .join(', ')
-      .substr(123);
+    return ingredients.map(({ name }) => name).join(', ');
   }
 
   addProductToCart(product: any): void {

@@ -12,18 +12,14 @@
 
   <div class="right-section">
     <ng-container *ngIf="isLoggedIn">
+      <button mat-button routerLink="/products/shops">Shops</button>
       <button mat-button routerLink="/products">Hot Dogs</button>
       <button
         mat-button
         routerLink="/products/shopping-cart"
         *ngIf="!isOnAdminRoute"
       >
-        <mat-icon
-          [matBadgeHidden]="numberOfProductsInCart <= 0"
-          [matBadge]="numberOfProductsInCart"
-          matBadgeColor="warn"
-          >shopping_cart</mat-icon
-        >
+        <mat-icon matBadgeColor="warn">shopping_cart</mat-icon>
       </button>
       <button mat-button routerLink="/admin">
         <mat-icon>admin_panel_settings</mat-icon>

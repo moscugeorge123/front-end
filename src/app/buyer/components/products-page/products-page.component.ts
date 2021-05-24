@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ProductsService } from 'src/app/admin/services/products.service';
 import { getProductsRequestActions } from 'src/app/admin/store/admin.actions';
 import { productsDataSelector } from 'src/app/admin/store/admin.selectors';
 import { getCartProductsRequestAction } from '../../store/buyer.actions';
@@ -11,8 +12,9 @@ import { getCartProductsRequestAction } from '../../store/buyer.actions';
 })
 export class ProductsPageComponent implements OnInit {
   public products$ = this.store.select(productsDataSelector);
+  public recommended$ = this.productsService.recommended();
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private productsService: ProductsService) {}
 
   ngOnInit(): void {
     this.store.dispatch(getProductsRequestActions());

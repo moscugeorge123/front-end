@@ -1,21 +1,48 @@
 <h2>{{ shop.name }}</h2>
+<p>{{ shop.locationX }} x {{ shop.locationY }}</p>
 
-<p>Coordinates: {{ shop.locationX }} x {{ shop.locationY }}</p>
+<h3 style="margin-top: 30px">Ingredients</h3>
+<table mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="ingredient">
+    <th mat-header-cell *matHeaderCellDef>Ingredient</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
 
-<mat-form-field class="description-title">
-  <mat-label>Ingredients</mat-label>
-  <mat-chip-list #chipList aria-label="Ingredients selection">
-    <mat-chip *ngFor="let ingredient of shop.ingredients">
-      {{ ingredient.quantity }} x {{ ingredient.name }}
-      <!-- <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon> -->
-    </mat-chip>
-    <input
-      matInput
-      placeholder="New ingredient..."
-      [matChipInputFor]="chipList"
-      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      [matChipInputAddOnBlur]="true"
-      (matChipInputTokenEnd)="add($event)"
-    />
-  </mat-chip-list>
-</mat-form-field>
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef>Quantity</th>
+    <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button (click)="deleteIngredient(element)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+
+<h3 style="margin-top: 30px">New ingredients</h3>
+<div class="add-ingredients" style="display: flex; flex-direction: column">
+  <mat-form-field>
+    <input type="text" #name matInput placeholder="Ingredient" />
+  </mat-form-field>
+  <mat-form-field>
+    <input type="number" #quantity matInput placeholder="Quantity" />
+  </mat-form-field>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="loading"
+    (click)="addIngredient(name, quantity)"
+  >
+    <span *ngIf="!loading">Add Ingredient</span>
+    <mat-spinner [diameter]="18" *ngIf="loading"></mat-spinner>
+  </button>
+</div>

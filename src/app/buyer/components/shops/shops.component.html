@@ -1,0 +1,44 @@
+<div class="shops">
+  <h2>Where do you want to eat?</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let shop of shops" (click)="selectShop(shop)">
+      {{ shop.name }}
+    </mat-list-item>
+  </mat-list>
+</div>
+<div class="maps">
+  <agm-map
+    [latitude]="47.157476089142364"
+    [longitude]="27.588541162267635"
+    [zoom]="14"
+  >
+    <agm-marker
+      [latitude]="userCoords.lat"
+      [longitude]="userCoords.lng"
+      [iconUrl]="{
+        url: '/assets/images/user.svg',
+        scaledSize: {
+          width: 35,
+          height: 35
+        }
+      }"
+    >
+    </agm-marker>
+
+    <agm-marker
+      *ngFor="let shop of shops"
+      [latitude]="shop.locationX"
+      [longitude]="shop.locationY"
+      (markerClick)="selectShop(shop)"
+    ></agm-marker>
+
+    <agm-direction
+      *ngIf="selectedShop"
+      [origin]="userCoords"
+      [destination]="{
+        lat: selectedShop.locationX,
+        lng: selectedShop.locationY
+      }"
+    ></agm-direction>
+  </agm-map>
+</div>
